@@ -30,6 +30,43 @@ function App(){
     }
   }
 
+
+
+  const getLocationWeather = ()=>{
+    if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(async (position)=>{
+        const lat = position.coords.latitude; 
+        const lon = position.coords.longitude;
+
+        console.log(lat)
+        console.log(lon)
+
+
+
+        const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+        const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}`;
+
+
+        try{  
+              const response = await fetch(url);
+              const data = await response.json();
+
+              setWeather(data);
+              console.log(data);
+
+
+
+        }catch(error){
+          console.log(error);
+        }
+
+      })
+
+    }else {
+    alert("La géolocalisation n'est pas supportée.");
+    }
+  }
+
   return(
     <div>
         
@@ -37,12 +74,13 @@ function App(){
 
       <div className="cityInput">
         <input type="text" value={city} placeholder="Enter the city name" onChange={(e) => setCity(e.target.value)} />
+        <button onClick={getLocationWeather}>Current location weather</button>
         <button onClick={handleSearch}>Search</button>
       </div>
 
       {weather &&(
       <div className="weatherContainer">
-        <h2>{weather.location.name}</h2>
+        <h2>{weather.location.country} {weather.location.name}</h2>
         <img src={`https:${weather.current.condition.icon}`} alt="" />
         <p>Temperature: {weather.current.temp_c}°C</p>
         <p>Humidity: {weather.current.humidity}°C</p>
