@@ -29,7 +29,13 @@ function App(){
       const forecastResponse = await fetch(urlforecast);
       const forecastData = await forecastResponse.json();
       
-      setForecast(forecastData.forecast.forecastday[0].hour.slice(0, 3));
+      let currentHour = new Date(data.location.localtime).getHours();
+
+      let futureHours = forecastData.forecast.forecastday[0].hour.filter(hour=>{
+        const hourtime = new Date(hour.time).getHours();
+        return hourtime > currentHour;
+      })
+      setForecast(futureHours.slice(0, 3));
       
       console.log(forecastData);
 
@@ -59,9 +65,19 @@ function App(){
           const data = await response.json();
           setWeather(data);
 
-          const fResponse = await fetch(urlforecast);
-          const fData = await fResponse.json();
-          setForecast(fData.forecast.forecastday[0].hour.slice(0, 3));
+          const forecastResponse = await fetch(urlforecast);
+          const forecastData = await forecastResponse.json();
+        
+          let currentHour = new Date(data.location.localtime).getHours();
+
+          let futureHours = forecastData.forecast.forecastday[0].hour.filter(hour=>{
+            const hourtime = new Date(hour.time).getHours();
+            return hourtime > currentHour;
+          })
+          setForecast(futureHours.slice(0, 3));
+          
+          console.log(forecastData);
+
         }catch(error){
           console.log(error);
         }
