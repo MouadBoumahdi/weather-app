@@ -67,28 +67,64 @@ function App(){
     }
   }
 
+
+
+
+    const translations = {
+    en: {
+      title: "WEATHER APP",
+      placeholder: "Enter the city name",
+      search: "Search",
+      currentLocation: "Local Weather",
+      temp: "Temperature",
+      humidity: "Humidity",
+      wind: "Wind Speed"
+    },
+    fr: {
+      title: "APPLICATION MÉTÉO",
+      placeholder: "Entrez le nom de la ville",
+      search: "Rechercher",
+      currentLocation: "Météo locale",
+      temp: "Température",
+      humidity: "Humidité",
+      wind: "Vitesse du vent"
+    }
+  };
+
+  const [language, setLanguage] = useState('en');
+
+
   return(
     <div>
         
-      <h1>WEATHER APP</h1>
+      <h1>{translations[language].title}</h1>
 
       <div className="cityInput">
-        <input type="text" value={city} placeholder="Enter the city name" onChange={(e) => setCity(e.target.value)} />
-        <button onClick={getLocationWeather}>Current location weather</button>
-        <button onClick={handleSearch}>Search</button>
+        <input type="text" value={city} placeholder={translations[language].placeholder} onChange={(e) => setCity(e.target.value)} />
+        <button onClick={getLocationWeather}>{translations[language].currentLocation}</button>
+        <button onClick={handleSearch}>{translations[language].search}</button>
       </div>
 
       {weather &&(
       <div className="weatherContainer">
         <h2>{weather.location.country} {weather.location.name}</h2>
         <img src={`https:${weather.current.condition.icon}`} alt="" />
-        <p>Temperature: {weather.current.temp_c}°C</p>
-        <p>Humidity: {weather.current.humidity}°C</p>
-        <p>Wind Speed: {weather.current.wind_kph} km/h</p>
+        <p>{translations[language].temp}: {weather.current.temp_c}°C</p>
+        <p>{translations[language].humidity}: {weather.current.humidity}°C</p>
+        <p>{translations[language].wind}: {weather.current.wind_kph} km/h</p>
       </div>
     )}
 
+
+      <div className="Language">
+        <button onClick={()=>setLanguage('en')}>en</button>
+        <button onClick={()=>setLanguage('fr')}>fr</button>
+      </div>
+
     </div>
+
+    
+    
 
     
     
