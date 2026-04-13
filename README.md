@@ -1,16 +1,52 @@
-# React + Vite
+Description
+This is a React-based weather application developed as part of the YouCode training program. The app allows users to search for real-time weather conditions and view hourly forecasts for any city worldwide.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Key Features
+Current Weather: Displays temperature, humidity, wind speed, and weather icons.
 
-Currently, two official plugins are available:
+Search: Find weather data by entering a city name.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Geolocation: Automatic weather detection based on the user's current position.
 
-## React Compiler
+Short-term Forecast: Shows the next 3 hours of weather, filtered from the current local time.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Multi-language Support: Interface available in English and French.
 
-## Expanding the ESLint configuration
+Responsive Design: Optimized for desktop, tablet, and mobile devices.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Tech Stack
+React.js (Vite)
+
+WeatherAPI
+
+CSS3
+
+JavaScript (ES6+)
+
+Installation
+Clone the repository:
+
+Bash
+git clone https://github.com/mouad-boumahdi/weather-app.git
+Install dependencies:
+
+Bash
+npm install
+Environment Variables:
+Create a .env file in the root directory and add your API key:
+
+Code snippet
+VITE_WEATHER_API_KEY=your_api_key_here
+Run the application:
+
+Bash
+npm run dev
+Project Logic
+Data Fetching: The app uses two separate API endpoints for current weather and forecast data to ensure accurate data separation.
+
+Hourly Filtering: Instead of showing the start of the day, the app filters the forecast array to display only the upcoming 3 hours based on the city's local time.
+
+Internationalization: A centralized translation object manages UI text, allowing for instant language switching without page reloads.
+
+Author
+Mouad Boumahdi - Full Stack Developer Student at YouCode.
