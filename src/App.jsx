@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './index.css';
 
 function App(){
 
@@ -6,7 +7,10 @@ function App(){
   const [weather,setWeather] = useState(null)
   const handleSearch = async()=>{
    
- 
+  if (!city.trim()) {
+      alert("Please enter a city name");
+      return;
+    }
   
 
     const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
@@ -28,19 +32,23 @@ function App(){
 
   return(
     <div>
-      <h1>Weather app</h1>
-      <input type="text" value={city} placeholder="Enter the city name" onChange={(e) => setCity(e.target.value)} />
-      <button onClick={handleSearch}>Search</button>
+        
+      <h1>WEATHER APP</h1>
+
+      <div className="cityInput">
+        <input type="text" value={city} placeholder="Enter the city name" onChange={(e) => setCity(e.target.value)} />
+        <button onClick={handleSearch}>Search</button>
+      </div>
 
       {weather &&(
-      <div>
+      <div className="weatherContainer">
         <h2>{weather.location.name}</h2>
         <img src={`https:${weather.current.condition.icon}`} alt="" />
         <p>Temperature: {weather.current.temp_c}°C</p>
         <p>Humidity: {weather.current.humidity}°C</p>
         <p>Wind Speed: {weather.current.wind_kph} km/h</p>
       </div>
-    )};
+    )}
 
     </div>
 
@@ -48,7 +56,7 @@ function App(){
     
   )
   
-;
+
 }
 
 
