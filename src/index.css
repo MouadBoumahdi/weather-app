@@ -122,7 +122,7 @@ body{
   display: flex;
   flex-direction: column;
   width: 19vw;
-  height: 15vh;
+  height: 18vh;
   margin: 0 auto;
   justify-content: space-around;
   background-color: #FFFFFF;
@@ -169,4 +169,10 @@ body{
 
 .weatherContainer p{
   font-family: bold;
+}
+
+
+.forecast{
+  width: 17em;
+  margin:20px auto;
 }

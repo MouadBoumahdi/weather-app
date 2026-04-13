@@ -4,7 +4,12 @@ import './index.css';
 function App(){
 
   const [city,setCity] = useState('');
+  const [forecast, setForecast] = useState([]);
   const [weather,setWeather] = useState(null)
+
+    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
+
+  
   const handleSearch = async()=>{
    
   if (!city.trim()) {
@@ -13,17 +18,20 @@ function App(){
     }
   
 
-    const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
     const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}`;
+    const urlforecast = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${city}&days=1`;
 
-    try{  
+    try {
       const response = await fetch(url);
       const data = await response.json();
-
       setWeather(data);
-      console.log(data);
 
-
+      const forecastResponse = await fetch(urlforecast);
+      const forecastData = await forecastResponse.json();
+      
+      setForecast(forecastData.forecast.forecastday[0].hour.slice(0, 3));
+      
+      console.log(forecastData);
 
     }catch(error){
       console.log(error);
@@ -43,19 +51,17 @@ function App(){
 
 
 
-        const apiKey = import.meta.env.VITE_WEATHER_API_KEY;
         const url = `http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${lat},${lon}`;
+        const urlforecast = `http://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${lat},${lon}&days=1`;
 
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          setWeather(data);
 
-        try{  
-              const response = await fetch(url);
-              const data = await response.json();
-
-              setWeather(data);
-              console.log(data);
-
-
-
+          const fResponse = await fetch(urlforecast);
+          const fData = await fResponse.json();
+          setForecast(fData.forecast.forecastday[0].hour.slice(0, 3));
         }catch(error){
           console.log(error);
         }
@@ -94,6 +100,15 @@ function App(){
   const [language, setLanguage] = useState('en');
 
 
+
+
+
+
+
+
+  
+
+
   return(
     <div>
         
@@ -112,6 +127,16 @@ function App(){
         <p>{translations[language].temp}: {weather.current.temp_c}°C</p>
         <p>{translations[language].humidity}: {weather.current.humidity}°C</p>
         <p>{translations[language].wind}: {weather.current.wind_kph} km/h</p>
+
+       <div className="forecast" style={{ display: 'flex', gap: '20px'}}>
+            {forecast.map((hour) => (
+              <div  className="hour-item">
+                <p>{hour.time.split(' ')[1]}</p>
+                <img src={`https:${hour.condition.icon}`} alt="" width="30"/>
+                <p>{hour.temp_c}°C</p>
+              </div>
+            ))}
+          </div>
       </div>
     )}
 
