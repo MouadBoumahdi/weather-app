@@ -176,3 +176,40 @@ body{
   width: 17em;
   margin:20px auto;
 }
+
+
+@media (max-width: 768px) {
+  .cityInput {
+    width: 90%;
+    height: auto;
+    padding: 20px 0;
+  }
+
+  .cityInput button {
+    width: calc(100% - 40px);
+    margin: 10px 20px;
+  }
+
+  .weatherContainer {
+    width: 90%;
+    max-width: 400px;
+  }
+
+  .forecast {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 28px;
+  }
+  
+  .cityInput input {
+    padding: 15px 10px;
+  }
+}
